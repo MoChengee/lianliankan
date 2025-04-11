@@ -1,4 +1,3 @@
-<!-- src/views/modes/BasicMode.vue -->
 <template>
   <div class="container">
     <!-- <h1>基本模式</h1> -->

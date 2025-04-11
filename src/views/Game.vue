@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive,onUnmounted } from 'vue';
 import GameBoard from '../components/GameBoard.vue';
 import Timer from '../components/Timer.vue';
 import clickSound from '../assets/audio/click.wav';
@@ -66,7 +66,6 @@ const props = defineProps({
 });
 
 // 游戏状态
-//const gameTime = ref(0);
 const isRunning = ref(false);
 const isPaused = ref(false);
 let gameTimer = null;
@@ -76,38 +75,9 @@ const gameMap = reactive([]);
 const selectedTiles = ref([]);
 const hintPair = ref(null);
 
-// 计时器模式
-//const timerMode = ref('up'); // 'up' 正计时 / 'down' 倒计时
-//const initialTime = ref(300); // 倒计时初始时间（单位：秒）
+// 计时器
 const gameTime = ref(props.timerMode === 'up' ? 0 : props.initialTime);
 
-// 开始游戏
-/* const startGame = () => {
-  if (isRunning.value) {
-    if (!window.confirm('确定要重新开始吗？当前进度将会丢失！')) return
-    resetGame()
-  }
-  resetGame();
-  const newMap = generateMap(ROWS, COLS, TYPES);
-  gameMap.splice(0, gameMap.length, ...generateMap(ROWS, COLS, TYPES));
-  isRunning.value = true;
-  isPaused.value = false;
-  startTimer();
-  clearInterval(gameTimer);
-  gameTimer = setInterval(() => {
-    if (!isPaused.value) {
-      if (timerMode.value === 'up') {
-        gameTime.value++;
-      } else {
-        if (gameTime.value > 0) {
-          gameTime.value--;
-        } else {
-          handleTimeout();
-        }
-      }
-    }
-  }, 1000);
-}; */
 const startGame = () => {
   if (isRunning.value) {
     if (!window.confirm('确定要重新开始吗？当前进度将会丢失！')) return
@@ -119,20 +89,6 @@ const startGame = () => {
   isRunning.value = true;
   isPaused.value = false;
   startTimer();
-  /* clearInterval(gameTimer);
-  gameTimer = setInterval(() => {
-    if (!isPaused.value) {
-      if (timerMode.value === 'up') {
-        gameTime.value++;
-      } else {
-        if (gameTime.value > 0) {
-          gameTime.value--;
-        } else {
-          handleTimeout();
-        }
-      }
-    }
-  }, 1000); */
 };
 
 // 超时处理
@@ -183,6 +139,7 @@ const togglePause = () => {
   isPaused.value = !isPaused.value;
 };
 
+const pathPoints = ref([]); // 用于存储路径点
 // 处理方块点击
 const handleTileClick = (tile) => {
   if (!isRunning.value || isPaused.value || tile.removed) return;
@@ -197,7 +154,6 @@ const handleTileClick = (tile) => {
 
   if (selectedTiles.value.length === 2) {
     const [t1, t2] = selectedTiles.value;
-
     if (
       t1.type === t2.type &&
       (checkStraightLine(t1, t2, gameMap, props.rows, props.cols) ||
@@ -206,8 +162,10 @@ const handleTileClick = (tile) => {
     ) {
       removeTiles(t1, t2);
     }
-
-    selectedTiles.value = [];
+    
+    setTimeout(() => {
+      selectedTiles.value = []; // 清空选中状态
+    }, 100); // 延迟清空
   }
 };
 
@@ -232,7 +190,10 @@ const startTimer = () => {
     }
   }, 1000);
 };
-
+// 在组件销毁时清除计时器
+onUnmounted(() => {
+  clearInterval(gameTimer);
+});
 // 查找所有有效的配对
 const findAllValidPairs = (gameMap, rows, cols) => {
   const pairs = [];

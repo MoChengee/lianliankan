@@ -1,6 +1,6 @@
-
 <template>
   <div class="game-board" :style="boardStyle">
+    
     <div 
       v-for="row in tiles" 
       :key="row[0].id" 
@@ -15,39 +15,32 @@
         @click="handleClick(tile)"
       />
     </div>
-
   </div>
 </template>
-
 <script setup>
-import { computed } from 'vue'
+import { computed,ref, onMounted, watch } from 'vue'
 import Tile from '../components/Tile.vue'
-
 const props = defineProps({
   tiles: Array,
   selected: Array,
   hintPair: Object
 })
-
 const emit = defineEmits(['tile-click'])
-
 const boardStyle = computed(() => ({
   gridTemplateColumns: `repeat(${props.tiles[0]?.length || 0}, 40px)`
 }))
-
 const isSelected = (tile) => {
   return props.selected.some(t => t.id === tile.id)
 }
-
 const isHint = (tile) => {
   return props.hintPair?.some(t => t?.id === tile.id)
 }
-
 const handleClick = (tile) => {
   emit('tile-click', tile)
 }
-</script>
 
+
+</script>
 <style scoped>
 .game-board {
   display: grid;

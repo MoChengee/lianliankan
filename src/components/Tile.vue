@@ -18,7 +18,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
 
 const props = defineProps({
   tile: Object,
@@ -28,9 +27,12 @@ const props = defineProps({
 
 const emit = defineEmits(['click'])
 
-const getImage = (type) => {
+/* const getImage = (type) => {
   return `/src/assets/images/elements/${type}.png`
-}
+} */
+const getImage = (type) => {
+  return new URL(`../assets/images/elements/${type}.png`, import.meta.url).href;
+};
 
 const handleClick = () => {
   if(!props.tile.removed){

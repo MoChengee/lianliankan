@@ -50,6 +50,8 @@ export const checkOneCorner = (a, b, gameMap, ROWS, COLS) => {
       checkStraightLine(a, corner2, gameMap, ROWS, COLS) &&
       checkStraightLine(corner2, b, gameMap, ROWS, COLS))
   );
+  
+  return false;
 };
 
 // 双折线检查
@@ -81,32 +83,7 @@ export const playSound = (src, volume = 1.0) => {
   audio.play();
 };
 
-// 生成初始地图
-/* export const generateMap = (ROWS, COLS, TYPES) => {
-  const total = ROWS * COLS;
-  const pairs = total / 2;
-  const tiles = [];
-
-  // 生成成对元素
-  for (let i = 0; i < pairs; i++) {
-    const type = i % TYPES;
-    tiles.push(type, type);
-  }
-
-  // 随机打乱
-  return shuffleArray(tiles).reduce((acc, val, idx) => {
-    if (idx % COLS === 0) acc.push([]);
-    acc[acc.length - 1].push({
-      id: idx,
-      type: val,
-      x: Math.floor(idx / COLS),
-      y: idx % COLS,
-      removed: false,
-    });
-    return acc;
-  }, []);
-};
- */
+// 生成游戏地图
 export const generateMap = (rows, cols, types) => {
   const totalTiles = rows * cols;
   const pairs = totalTiles / 2;
@@ -131,6 +108,7 @@ export const generateMap = (rows, cols, types) => {
     return acc;
   }, []);
 };
+
 // 移除方块
 export const removeTiles = (t1, t2) => {
   t1.removed = true;
