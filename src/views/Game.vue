@@ -139,7 +139,7 @@ const togglePause = () => {
   isPaused.value = !isPaused.value;
 };
 
-const pathPoints = ref([]); // 用于存储路径点
+//const pathPoints = ref([]); // 用于存储路径点
 // 处理方块点击
 const handleTileClick = (tile) => {
   if (!isRunning.value || isPaused.value || tile.removed) return;
@@ -154,6 +154,7 @@ const handleTileClick = (tile) => {
 
   if (selectedTiles.value.length === 2) {
     const [t1, t2] = selectedTiles.value;
+
     if (
       t1.type === t2.type &&
       (checkStraightLine(t1, t2, gameMap, props.rows, props.cols) ||
@@ -163,6 +164,9 @@ const handleTileClick = (tile) => {
       removeTiles(t1, t2);
     }
     
+    
+
+
     setTimeout(() => {
       selectedTiles.value = []; // 清空选中状态
     }, 100); // 延迟清空
@@ -203,6 +207,7 @@ const findAllValidPairs = (gameMap, rows, cols) => {
     for (let j = i + 1; j < tiles.length; j++) {
       const t1 = tiles[i];
       const t2 = tiles[j];
+
       if (
         t1.type === t2.type &&
         (checkStraightLine(t1, t2, gameMap, rows, cols) ||

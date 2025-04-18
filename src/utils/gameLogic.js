@@ -71,6 +71,9 @@ export const checkTwoCorners = (a, b, gameMap, ROWS, COLS) => {
   return false;
 };
 
+
+
+
 // 工具函数:随机打乱数组
 export const shuffleArray = (arr) => {
   return arr.slice().sort(() => Math.random() - 0.5);

@@ -1,5 +1,5 @@
 <template>
-  <div class="hero">
+  <div class="hero" :style="{ backgroundImage: `url(${selectedBackground})` }">
     <div class="static-rectangle"></div>
     <div class="trapezoid">
       <div class="content">
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted,ref } from 'vue';
 
 onMounted(() => {
   document.title = "欢乐连连看";
@@ -26,16 +26,39 @@ onMounted(() => {
 
 const showHelp = () => alert("游戏规则：找到相同的图案并消除它们！");
 const showSettings = () => alert("设置功能未实现😆");
+// 定义背景图数组
+const backgroundImages = [
+  'https://bestdori.com/assets/jp/characters/resourceset/res007070_rip/card_after_training.png',
+  'https://bestdori.com/assets/jp/characters/resourceset/res007073_rip/card_after_training.png',
+  'https://bestdori.com/assets/jp/characters/resourceset/res007075_rip/card_after_training.png',
+  'https://bestdori.com/assets/jp/characters/resourceset/res007072_rip/card_after_training.png',
+  'https://bestdori.com/assets/jp/characters/resourceset/res007072_rip/card_normal.png',
+  'https://bestdori.com/assets/en/characters/resourceset/res007068_rip/card_after_training.png',
+  'https://bestdori.com/assets/en/characters/resourceset/res007067_rip/card_after_training.png',
+  'https://bestdori.com/assets/en/characters/resourceset/res007059_rip/card_normal.png',
+  'https://bestdori.com/assets/en/characters/resourceset/res007044_rip/card_after_training.png',
+
+
+
+
+
+];
+// 随机选择背景图
+const selectedBackground = ref('');
+onMounted(() => {
+  const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+  selectedBackground.value = backgroundImages[randomIndex];
+});
 </script>
 
 <style>
 .hero {
   height: 100vh;
   width: 100vw;
-  background-image: url('https://bestdori.com/assets/en/characters/resourceset/res007059_rip/card_normal.png');
+  /* background-image: url("v-bind(selectedBackground)"); */
   background-size: cover;
   background-position: right 0px top -70px ;
-  background-size: 85%;
+  background-size: 70%;
   background-repeat: no-repeat;
   position: fixed;
   top: 0;
@@ -47,9 +70,9 @@ const showSettings = () => alert("设置功能未实现😆");
   position: absolute;
   top: 0;
   left: 0;
-  width: 20%; /* 静态矩形宽度 */
+  width: 30%; /* 静态矩形宽度 */
   height: 100%;
-  background: rgba(217, 228, 225, 0.9); /* 与梯形背景一致 */
+  background: #00CCAA; /* 与梯形背景一致 */
   z-index: 0; /* 确保在梯形下方 */
 }
 .trapezoid {
