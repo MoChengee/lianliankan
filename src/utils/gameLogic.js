@@ -8,6 +8,11 @@ export const isPositionEmpty = (pos, gameMap, ROWS, COLS) => {
   return tile.removed;
 };
 
+// 判断是否所有方块都被清空
+export const isGameCleared = (gameMap) => {
+  return gameMap.flat().every((tile) => tile.removed);
+};
+
 // 直线路径检查
 export const checkStraightLine = (a, b, gameMap, ROWS, COLS) => {
     // 边界外框连接规则
@@ -76,12 +81,25 @@ export const shuffleArray = (arr) => {
   return arr.slice().sort(() => Math.random() - 0.5);
 };
 
-// 工具函数:播放音效
-export const playSound = (src, volume = 1.0) => {
+const gameConfig = {
+  soundVolume: 1.0,  
+  voiceVolume: 1.0   
+};
+
+export const setSoundVolume = (volume) => {
+  gameConfig.soundVolume = Math.min(Math.max(volume, 0), 1);
+};
+
+export const setVoiceVolume = (volume) => {
+  gameConfig.voiceVolume = Math.min(Math.max(volume, 0), 1);
+};
+
+export const playSound = (src, isVoice = false) => {
   const audio = new Audio(src);
-  audio.volume = Math.min(Math.max(volume, 0), 1); // 确保音量在 0 到 1 之间
+  audio.volume = isVoice ? gameConfig.voiceVolume : gameConfig.soundVolume;
   audio.play();
 };
+
 
 // 生成游戏地图
 export const generateMap = (rows, cols, types) => {
@@ -120,7 +138,7 @@ export const removeTiles = (t1, t2) => {
   playSound(soundPath, 0.3); // 播放音效，音量为 80%
 };
 
-// TODO:重排功能
+// 重排功能
 export const shuffleTiles = (gameMap) => {
   // 提取所有方块
   const allTiles = gameMap.flat();

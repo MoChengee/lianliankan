@@ -14,16 +14,29 @@
       >{{ isPaused ? '继续游戏' : '暂停游戏' }}</button>
       
       <button 
-        id="IDC_BTN_PROMPT" 
-        @click="handleShowHint"
-        :disabled="!isRunning || isPaused"
-      >提示</button>
-      
+    id="IDC_BTN_PROMPT" 
+    @click="handleHint"
+    :disabled="!isRunning || isPaused || (props.mode === 'basic' && hintCooldown.value)"
+  >
+    提示
+    <span v-if="props.mode === 'basic' && hintCooldown.value">（冷却中）</span>
+  </button>
+  
+  <button 
+    id="IDC_BTN_RESET" 
+    @click="handleShuffle"
+    :disabled="!isRunning || isPaused || (props.mode === 'basic' && shuffleCooldown.value)"
+  >
+    重排
+    <span v-if="props.mode === 'basic' && shuffleCooldown.value">（冷却中）</span>
+  </button>
+
       <button 
-        id="IDC_BTN_RESET" 
-        @click="() => shuffleTiles(gameMap)"
-        :disabled="!isRunning || isPaused"
-      >重排</button>
+      id="IDC_BTN_SETTINGS"
+      @click="showSettings"
+      :disabled="!isRunning"
+      >设置</button>
+      <SettingsDialog :visible="showSettingsDialog" @close="showSettingsDialog = false" />
     </div>
 
     <GameBoard 
@@ -42,10 +55,11 @@
 </template>
 
 <script setup>
-import { ref, reactive,onUnmounted } from 'vue';
+import { ref, reactive,onUnmounted,onMounted } from 'vue';
 import GameBoard from '../components/GameBoard.vue';
 import Timer from '../components/Timer.vue';
 import clickSound from '../assets/audio/click.wav';
+import SettingsDialog from '../components/SettingsDialog.vue';
 import {
   generateMap,
   removeTiles,
@@ -54,7 +68,9 @@ import {
   checkStraightLine,
   checkOneCorner,
   checkTwoCorners,
+  isGameCleared,
 } from '../utils/gameLogic.js';
+import Controls from '../components/SettingsDialog.vue';
 
 // 接收从父组件传递的参数
 const props = defineProps({
@@ -63,6 +79,7 @@ const props = defineProps({
   types: Number,
   timerMode: String,
   initialTime: Number,
+  mode: String,
 });
 
 // 游戏状态
@@ -116,6 +133,28 @@ const resetGame = () => {
   gameMap.splice(0, gameMap.length);
 };
 
+// 添加音量状态
+const soundVolume = ref(1.0);
+const showSettingsDialog = ref(false);
+
+// 从本地存储加载设置
+onMounted(() => {
+  const savedVolume = localStorage.getItem('soundVolume');
+  if (savedVolume) {
+    soundVolume.value = parseFloat(savedVolume);
+  }
+});
+
+// 修改后的设置功能
+const showSettings = () => {
+  showSettingsDialog.value = true;
+};
+
+// 关闭设置时保存到本地存储
+const closeSettings = () => {
+  localStorage.setItem('soundVolume', soundVolume.value);
+  showSettingsDialog.value = false;
+};
 
 
 //TODO：排行榜
@@ -144,7 +183,7 @@ const pathPoints = ref([]); // 用于存储路径点
 const handleTileClick = (tile) => {
   if (!isRunning.value || isPaused.value || tile.removed) return;
 
-  playSound(clickSound, 0.3);
+  playSound(clickSound);
 
   if (selectedTiles.value.length === 1 && selectedTiles.value[0].id === tile.id) {
     return;
@@ -161,6 +200,13 @@ const handleTileClick = (tile) => {
         checkTwoCorners(t1, t2, gameMap, props.rows, props.cols))
     ) {
       removeTiles(t1, t2);
+      // 判断是否所有方块都被清空
+      if (isGameCleared(gameMap)) {
+        setTimeout(() => {
+          alert('恭喜你，游戏通关！'); // 弹出提示
+          resetGame(); // 重置游戏或跳转到主页
+        }, 100);
+      }
     }
     
     setTimeout(() => {
@@ -227,6 +273,38 @@ const handleShowHint = () => {
   }
 }; 
 
+const shuffleCooldown = ref(false); // 重排冷却状态
+const hintCooldown = ref(false); // 提示冷却状态
+const handleShuffle = () => {
+  if (props.mode === 'basic' && shuffleCooldown.value) {
+    alert('重排功能正在冷却，请稍后再试！');
+    return;
+  }
+
+  shuffleTiles(gameMap);
+
+  if (props.mode === 'basic') {
+    shuffleCooldown.value = true;
+    setTimeout(() => {
+      shuffleCooldown.value = false;
+    }, 30000); // 30秒冷却时间
+  }
+};
+const handleHint = () => {
+  if (props.mode === 'basic' && hintCooldown.value) {
+    alert('提示功能正在冷却，请稍后再试！');
+    return;
+  }
+
+  handleShowHint();
+
+  if (props.mode === 'basic') {
+    hintCooldown.value = true;
+    setTimeout(() => {
+      hintCooldown.value = false;
+    }, 10000); // 10秒冷却时间
+  }
+};
 </script>
 
 <style>

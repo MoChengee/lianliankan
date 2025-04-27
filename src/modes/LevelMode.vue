@@ -17,6 +17,7 @@
         :types="currentDifficulty.types" 
         :timerMode="'down'" 
         :initialTime="currentDifficulty.time" 
+        mode="basic"
       />
       <button @click="resetLevel">重新开始</button>
       <button @click="returnToMenu">返回主页</button>
@@ -30,7 +31,7 @@ import Game from '../views/Game.vue'; // 引入游戏主组件
 
 // 难度配置
 const difficultySettings = {
-  easy: { rows: 6, cols: 6,types: 8, time: 10 },
+  easy: { rows: 6, cols: 6,types: 8, time: 100 },
   normal: { rows: 10, cols: 10,types: 12, time: 120 },
   hard: { rows: 12, cols: 12,types: 16, time: 90 },
   expert: { rows: 15, cols: 20,types: 30, time: 60 },

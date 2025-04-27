@@ -12,6 +12,7 @@
         :types="16" 
         :timerMode="'up'" 
         :initialTime="0" 
+        mode="relax"
       />
   </div>
   </div>
