@@ -41,10 +41,10 @@ onMounted(() => {
   position: absolute;
   left: 20px;
   top: 20px;
-  padding: 4px 6px; /* 缩小内边距 */
-  font-size: 14px; /* 缩小字体 */
-  width: 100px; /* 缩小宽度 */
-  height: 20px !important; /* 缩小高度 */
+  padding: 4px 6px; 
+  font-size: 14px; 
+  width: 100px; 
+  height: 20px !important; 
   background: #4CAF50;
   color: white;
   border: none;
@@ -58,15 +58,15 @@ onMounted(() => {
 }
 
 .container {
-  position: fixed;  /* 让背景固定 */
+  position: fixed;  
   top: 0;
   left: 0;
-  width: 100vw;  /* 让宽度填满整个视口 */
-  height: 100vh; /* 让高度填满整个视口 */
+  width: 100vw;  
+  height: 100vh; 
   background-image: url('/src/assets/game_bg.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 0; /* 让它在最底层，避免遮挡内容 */
+  z-index: 0; 
   }
 </style>

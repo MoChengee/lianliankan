@@ -76,7 +76,7 @@ export const checkTwoCorners = (a, b, gameMap, ROWS, COLS) => {
   return false;
 };
 
-// 工具函数:随机打乱数组
+// 随机打乱数组
 export const shuffleArray = (arr) => {
   return arr.slice().sort(() => Math.random() - 0.5);
 };
@@ -135,7 +135,7 @@ export const removeTiles = (t1, t2) => {
   // 使用 import.meta.url 动态生成路径
   const soundPath = new URL(`../assets/audio/${t1.type}.mp3`, import.meta.url).href;
 
-  playSound(soundPath, 0.3); // 播放音效，音量为 80%
+  playSound(soundPath, 0.3); 
 };
 
 // 重排功能

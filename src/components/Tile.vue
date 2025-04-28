@@ -27,9 +27,6 @@ const props = defineProps({
 
 const emit = defineEmits(['click'])
 
-/* const getImage = (type) => {
-  return `/src/assets/images/elements/${type}.png`
-} */
 const getImage = (type) => {
   return new URL(`../assets/images/elements/${type}.png`, import.meta.url).href;
 };

@@ -95,28 +95,13 @@ const returnToMenu = () => {
   background-color: rgba(184, 184, 184,0.8);
 }
 
-/* .difficulty-buttons button:hover:nth-child(1) {
-  background-color: rgba(33, 150, 243, 0.8); 
-}
-.difficulty-buttons button:hover:nth-child(2) {
-  background-color: rgba(76, 175, 80, 0.8); 
-.difficulty-buttons button:hover:nth-child(3) {
-  background-color: rgba(255, 235, 59, 0.8); 
-}
-.difficulty-buttons button:hover:nth-child(4) {
-  background-color: rgba(244, 67, 54, 0.8); 
-}
-.difficulty-buttons button:hover:nth-child(5) {
-  background-color: rgba(156, 39, 176, 0.8); 
-} */
-
 .difficulty-buttons{
   height: 100%;
   width: 100%;
   display: flex;
   gap: 50px;
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
+  justify-content: center; 
+  align-items: center; 
 }
 
 .game-area {
@@ -134,10 +119,10 @@ const returnToMenu = () => {
   position: absolute;
   left: 20px;
   top: 20px;
-  padding: 4px 6px; /* 缩小内边距 */
-  font-size: 14px; /* 缩小字体 */
-  width: 100px; /* 缩小宽度 */
-  height: 20px !important; /* 缩小高度 */
+  padding: 4px 6px; 
+  font-size: 14px; 
+  width: 100px; 
+  height: 20px !important; 
   background: #4CAF50;
   color: white;
   border: none;
