@@ -8,7 +8,7 @@
 
 这是我第一次自己用vue框架搭建项目，而且比较匆忙，肯定会有不足，欢迎指出！
 
-可以联系Mochengee@gmail.com，看到了就会回复的w
+可以联系mochengee@gmail.com，看到了就会回复的w
 
 另外通过GitHub实现了部署，链接是https://mochengee.github.io/lianliankan/
 可能需要点进去刷新一下
