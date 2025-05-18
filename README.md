@@ -1,5 +1,22 @@
 # Vue 3 + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+这是我在武汉理工大学计算机专业大二下数据结构实验连连看游戏的代码仓库，可供参考
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+教材上是使用c++实现，老师鼓励使用不同语言
+
+不过应该不能照搬，因为老师对我的项目比较熟悉了XD
+
+这是我第一次自己用vue框架搭建项目，而且比较匆忙，肯定会有不足，欢迎指出！
+
+可以联系Mochengee@gmail.com，看到了就会回复的w
+
+另外通过GitHub实现了部署，链接是
+需要点进去刷新一下
+
+连连看游戏的主题是基于BangDream少女乐团派对！，素材来源https://bestdori.com/，
+
+也欢迎邦友体验~（虽然游戏很粗糙但是我很喜欢玩👉👈
+
+
+
+
