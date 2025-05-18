@@ -10,8 +10,8 @@
 
 可以联系Mochengee@gmail.com，看到了就会回复的w
 
-另外通过GitHub实现了部署，链接是
-需要点进去刷新一下
+另外通过GitHub实现了部署，链接是https://mochengee.github.io/lianliankan/
+可能需要点进去刷新一下
 
 连连看游戏的主题是基于BangDream少女乐团派对！，素材来源https://bestdori.com/，
 
