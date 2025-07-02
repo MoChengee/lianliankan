@@ -1,6 +1,8 @@
 # 武汉理工大学数据结构实验-连连看
 
 这是我在武汉理工大学计算机专业大二下数据结构实验连连看游戏的代码仓库，可供参考
+<img width="1461" alt="image" src="https://github.com/user-attachments/assets/0e0bf011-34a1-4ad3-99cf-aa8cfe2e107e" />
+![24ab6b8d2b935e4718ebfecb7b6f2d7d](https://github.com/user-attachments/assets/a37d0044-6012-445e-a00f-9fb44de4d6a3)
 
 教材上是使用c++实现，老师鼓励使用不同语言
 
